@@ -46,7 +46,6 @@ if [ -z "$JAVA_HOME" ]; then
 	export JAVA_HOME=/usr/lib/jvm/jre
 fi
 
-yum -yq install unzip
 # Some distros do not come with unzip built-in
 if [ ! -f "/usr/bin/unzip" ]; then
 	chmod +x $WORKING_HOME_DIRECTORY/unzip || error_exit $? "Failed changing execution permission to unzip"
