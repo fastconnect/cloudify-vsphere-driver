@@ -27,8 +27,7 @@ import org.cloudifysource.esc.driver.provisioning.vsphere.api.impl.VSphereCommun
  * @author Venkat
  *
  */
-public class VSphereCloudifyDriver extends CloudDriverSupport implements ProvisioningDriver
-		 {
+public class VSphereCloudifyDriver extends CloudDriverSupport implements ProvisioningDriver {
 
 	private static final String VSPHERE_URL = "vsphere.URL";
 	private static final String VSPHERE_USER_NAME = "vsphere.username";
@@ -40,16 +39,14 @@ public class VSphereCloudifyDriver extends CloudDriverSupport implements Provisi
 	private String vspherePassword;
 	private VSphereCommunicatorService vsphereCommunicatorService ;
 
-	public void setProvisioningDriverClassContext(
-			ProvisioningDriverClassContext provisioningDriverClassContext) {
-	
-		
+	public void setProvisioningDriverClassContext(ProvisioningDriverClassContext provisioningDriverClassContext) {
 	}
 
 	public void close() {
-		vsphereCommunicatorService.close();		
+	    if(vsphereCommunicatorService != null) {
+	        vsphereCommunicatorService.close();		
+	    }
 	}
-
 	
 	@Override
 	public void setConfig(Cloud cloud, String templateName, boolean management) {
@@ -82,7 +79,6 @@ public class VSphereCloudifyDriver extends CloudDriverSupport implements Provisi
 			throw new RuntimeException(e);
 		}		
 	}
-
 	
 	public MachineDetails startMachine(long duration, TimeUnit timeout)
 			throws TimeoutException, CloudProvisioningException {
@@ -115,7 +111,10 @@ public class VSphereCloudifyDriver extends CloudDriverSupport implements Provisi
 		}
 	}
 
-	private MachineDetails[] doStartManagement(final long duration, final TimeUnit timeout,int numOfManagementMachines,
+	private MachineDetails[] doStartManagement(
+	        final long duration, 
+	        final TimeUnit timeout,
+	        int numOfManagementMachines,
 			ExecutorService executor) throws CloudProvisioningException {
 		// launch machine on a thread
 		final List<Future<MachineDetails>> list = new ArrayList<Future<MachineDetails>>(numOfManagementMachines);
@@ -129,12 +128,9 @@ public class VSphereCloudifyDriver extends CloudDriverSupport implements Provisi
 
 					final MachineDetails md = vsphereCommunicatorService.createServer(duration,timeout,serverNamePrefix,serverNamePrefix+index,cloud,template);
 					return md;
-
 				}
-
 			});
 			list.add(task);
-
 		}
 
 		// get the machines
@@ -180,9 +176,6 @@ public class VSphereCloudifyDriver extends CloudDriverSupport implements Provisi
 
 	public void stopManagementMachines() throws TimeoutException,
 			CloudProvisioningException {
-		
-
-
 
 		try {
 			vsphereCommunicatorService.terminateServers(serverNamePrefix);
@@ -195,10 +188,6 @@ public class VSphereCloudifyDriver extends CloudDriverSupport implements Provisi
 	public String getCloudName() {
 		return this.cloud.getName();
 	}
-	
-	
-	
-
 }
 
 	

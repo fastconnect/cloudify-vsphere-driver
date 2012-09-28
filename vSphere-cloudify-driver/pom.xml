@@ -1,29 +1,81 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
-	<parent>
-		<groupId>org.cloudifysource</groupId>
-		<artifactId>cloudify</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cloudifysource.cloudify</groupId>
 	<artifactId>vSphere-cloudify-driver</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-  	<name>cloudify driver for vsphere</name>
+	<name>cloudify driver for vsphere</name>
+
+	<repositories>
+		<repository>
+			<id>org.cloudifysource</id>
+			<url>http://maven-repository.cloudifysource.org</url>
+		</repository>
+	</repositories>
+
+	<properties>
+		<cloudifyVersion>2.1.0</cloudifyVersion>
+	</properties>
+
 	<dependencies>
+		<dependency>
+			<groupId>org.cloudifysource</groupId>
+			<artifactId>esc</artifactId>
+			<version>${cloudifyVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.cloudifysource</groupId>
+			<artifactId>dsl</artifactId>
+			<version>${cloudifyVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-core</artifactId>
+			<version>1.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-apache-client</artifactId>
+			<version>1.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.5</version>
+		</dependency>
+
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.vmware</groupId>
+			<groupId>com.cloudbees.thirdparty</groupId>
 			<artifactId>vijava</artifactId>
-			<version>2.5</version>
+			<version>5.0.0</version>
 		</dependency>
 
 	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0-beta-9</version>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
