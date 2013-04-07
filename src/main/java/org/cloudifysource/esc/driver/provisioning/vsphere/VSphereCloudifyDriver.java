@@ -49,8 +49,8 @@ public class VSphereCloudifyDriver extends CloudDriverSupport implements Provisi
 	}
 	
 	@Override
-	public void setConfig(Cloud cloud, String templateName, boolean management) {
-		super.setConfig(cloud, templateName, management);
+	public void setConfig(final Cloud cloud, final String templateName,	final boolean management, final String serviceName) {
+		super.setConfig(cloud, templateName, management, serviceName);
 		
 		if (this.management) {
 			this.serverNamePrefix = this.cloud.getProvider().getManagementGroup();
@@ -80,8 +80,9 @@ public class VSphereCloudifyDriver extends CloudDriverSupport implements Provisi
 		}		
 	}
 	
-	public MachineDetails startMachine(long duration, TimeUnit timeout)
-			throws TimeoutException, CloudProvisioningException {
+	@Override	
+	public MachineDetails startMachine(final String locationId, final long duration, final TimeUnit unit)			
+			throws TimeoutException, CloudProvisioningException {				
 		MachineDetails md;
 		String machineName = serverNamePrefix;
 		 String serviceNamePrefix =(String) this.template.getCustom().get("machineNamePrefix");
@@ -89,7 +90,7 @@ public class VSphereCloudifyDriver extends CloudDriverSupport implements Provisi
 			 machineName=serviceNamePrefix ;
 		 }
 		try {
-			md = vsphereCommunicatorService.createServer(duration,timeout,this.serverNamePrefix,machineName+System.currentTimeMillis(),this.cloud,this.template);
+			md = vsphereCommunicatorService.createServer(duration,unit,this.serverNamePrefix,machineName+System.currentTimeMillis(),this.cloud,this.template);
 		} catch (final Exception e) {
 			throw new CloudProvisioningException(e);
 		}

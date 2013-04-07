@@ -25,7 +25,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<cloudifyVersion>2.1.1</cloudifyVersion>
+		<cloudifyVersion>2.3.1-RELEASE</cloudifyVersion>
 	</properties>
 
 	<dependencies>
